@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <a routerLink="/">Back</a>
+    <h3>Welcome <span>{{current_user}}</span></h3>
+    <div *ngIf="isSaved" class="alert alert-success" role="alert">
+        <strong>IP List!</strong> Stored in Localstorage.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="ip-form-container">
+        <form class="ip-form" #form="ngForm" novalidate (ngSubmit)="save()">     
+          <div class="form-group form-input" *ngFor="let item of inputArr; let i=index;trackBy:trackByIndex;">
+            <input type="text" class="form-control" name="{{'ip_address_'+i}}" [pattern]="ip_pattern" [(ngModel)]="item.ip" (ngModelChange)="changeEvent($event)" #ipaddress="ngModel" [ngClass]="{ 'error': submitted && ipaddress.invalid }" required> 
+
+            <i (click)="addItem()" class="fa fa-plus" *ngIf="(i == inputArr.length-1 && inputArr.length < allowed_inputs);else remove" ></i>
+            
+            <ng-template #remove>
+              <i (click)="removeItem(i)"  class="fa fa-minus"></i>
+            </ng-template>  
+            <p *ngIf="submitted && ipaddress.invalid">check if entered value is valid IP address</p>    
+          </div>
+          <button  [disabled]="inputArr.length != allowed_inputs || form.invalid || isSaved"  type="submit" class="btn btn-warning">Save</button>
+        </form>
+    </div>
+  </div>
+  
+</div>

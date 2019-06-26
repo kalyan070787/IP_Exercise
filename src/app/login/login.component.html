@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="center">
+      <!-- Form starts -->
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="user-input">
+          <select class="custom-select form-control" formControlName="user">
+              <option value="" disabled>Choose User</option>
+              <option *ngFor="let user of Users" [ngValue]="user">{{user}}</option>
+          </select>
+          <span class="err-txt" *ngIf="submitted && userForm.controls.user.invalid">Select User</span>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+      <!-- Form ends -->   
+    </div>
+  </div>    
+</div>
