@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import { FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormBuilder, Validators, FormControl, NgForm } from "@angular/forms";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
   submitted = false;
   isSaved = false;
   @ViewChild('form') ipForm = ElementRef;
-  addItem() {
+  addItem(form:NgForm) {
     this.submitted = true;
-    if(this.ipForm.valid){
+    if(form.valid){
       this.inputArr.push({ip:''});
     }
   }
