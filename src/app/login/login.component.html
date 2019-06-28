@@ -4,7 +4,7 @@
       <!-- Form starts -->
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="user-input">
-          <select class="custom-select form-control" formControlName="user">
+          <select class="custom-select form-control" formControlName="user">   
               <option value="" disabled>Choose User</option>
               <option *ngFor="let user of Users" [ngValue]="user">{{user}}</option>
           </select>

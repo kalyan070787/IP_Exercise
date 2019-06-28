@@ -10,17 +10,18 @@
       </div>
     <div class="ip-form-container">
         <form class="ip-form" #form="ngForm" novalidate (ngSubmit)="save()">     
-          <div class="form-group form-input" *ngFor="let item of inputArr; let i=index;trackBy:trackByIndex;">
-            <input type="text" class="form-control" name="{{'ip_address_'+i}}" [pattern]="ip_pattern" [(ngModel)]="item.ip" (ngModelChange)="changeEvent($event)" #ipaddress="ngModel" [ngClass]="{ 'error': submitted && ipaddress.invalid }" required> 
-
-            <i (click)="addItem(form)" class="fa fa-plus" *ngIf="(i == inputArr.length-1 && inputArr.length < allowed_inputs);else remove" ></i>
+          <div class="form-group form-input" *ngFor="let item of ip_list; let i=index;trackBy:trackByIndex;">
+            <input type="text" class="form-control" name="{{'ip_address_'+i}}" [pattern]="ip_pattern" [(ngModel)]="item.ip" (ngModelChange)="changeEvent($event)" #ipaddress="ngModel" [ngClass]="{ 'error': ipaddress.invalid }"> 
+            <i [class.disabled]="i == 0 && ip_list.length == 1" (click)="removeItem(i)" class="fa fa-minus"></i>
+            <i [class.disabled]="ip_list.length >= allowed_inputs" *ngIf="i == ip_list.length-1" (click)="addItem(form)" class="fa fa-plus"></i>            
+            <!-- <i (click)="addItem(form)" class="fa fa-plus" *ngIf="(i == inputArr.length-1 && inputArr.length < allowed_inputs);else remove" ></i>
             
             <ng-template #remove>
               <i (click)="removeItem(i)"  class="fa fa-minus"></i>
-            </ng-template>  
+            </ng-template>   -->
             <p *ngIf="submitted && ipaddress.invalid">check if entered value is valid IP address</p>    
-          </div>
-          <button  [disabled]="inputArr.length >= allowed_inputs || form.invalid || isSaved"  type="submit" class="btn btn-warning">Save</button>
+          </div>          
+          <button [disabled]="form.invalid || !isChanged || (ip_list.length == 1 &&form.controls.ip_address_0.value == '')" type="submit" class="btn btn-warning">{{text}}</button>
         </form>
     </div>
   </div>

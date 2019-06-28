@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       }else {
         localStorage.setItem('no_of_inputs', '10');
       }
+      localStorage.setItem('ips', JSON.stringify([{ip:''}]));
       localStorage.setItem('currentUser', JSON.stringify(this.userForm.value));
       this.router.navigateByUrl('home');
     }
