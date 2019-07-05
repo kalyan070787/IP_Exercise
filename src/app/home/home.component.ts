@@ -25,13 +25,20 @@ export class HomeComponent implements OnInit {
     }
   }
   removeItem(index){
-    console.log(index);
     this.ip_list.splice(index,1);
+    var list = this.ip_list.filter(obj => obj.ip == '');
+    if(this.ip_list.length == list.length){
+      this.isChanged = false;
+    }
   }
   changeEvent(event){
     this.isChanged = true;
-  }
-  save() {
+    var list = this.ip_list.filter(obj => obj.ip == '');
+    if(this.ip_list.length == list.length){
+      this.isChanged = false;
+    }
+  }  
+save() {
     var self= this;
     var list = this.ip_list.filter(obj => obj.ip != '');
     this.ip_list = list; 
